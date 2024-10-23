@@ -1,0 +1,40 @@
+y_pred=[];y_prob=[]
+for test_face in x_test_lda:
+    prob = clf.predict_proba([test_face])[0]
+    #print(prob, np.max(prob))
+    class_id= np.where(prob == np.max(prob))[0][0]
+    #print(class_index)
+    # Find the Label of the mathed face
+    y_pred.append(class_id)
+    y_prob.append(np.max(prob))
+
+#Transform the data
+y_pred = np.array(y_pred)
+
+prediction_titles=[]
+true_positive = 0
+
+for i in range(y_pred.shape[0]):
+
+    # print(y_test[i],y_pred[i])
+
+    #true_name = target_names[y_test[i]].rsplit('', 1)[-1]
+
+    # pred_name = target_names[y_pred[i]].rsplit('', 1)[-1] ]
+
+    true_name = class_names[y_test[i]]
+    pred_name = class_names[y_pred[i]]
+    result = 'pred: %s, pr: %s \ntrue: %s' % (pred_name, str(y_prob[i]) [0:3], true_name)
+
+    # result = 'prediction: %s \ntrue:
+
+    prediction_titles.append(result)
+    if true_name==pred_name:
+        true_positive =true_positive+1
+
+print("Accuracy:", true_positive*100/y_pred.shape[0])
+
+## Plot results
+
+plot_gallery(x_test, prediction_titles, h, w)
+plt.show()

@@ -1,0 +1,6 @@
+# Training with Multi Layer perceptron
+
+clf = MLPClassifier(random_state=1, hidden_layer_sizes=(10,10), max_iter=1000, verbose=True).fit(x_train_lda, y_train)
+print("Model Weights:")
+model_info = [coef.shape for coef in clf.coefs_]
+print(model_info)
